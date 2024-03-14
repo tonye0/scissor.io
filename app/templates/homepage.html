@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the content takes up at least the full height of the viewport */
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            height: 3em;
+            margin-bottom: 5em;
+        }
+        .logo img {
+            height: 30px;
+            width: auto;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        nav li {
+            margin-right: 20px;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .nav-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-links li {
+            margin-right: 40px;
+        }
+        .nav-links li:last-child {
+            margin-right: 0;
+        }
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover {
+            border-bottom: 2px solid #ffffff;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .button {
+            display: inline-block;
+            width: 100px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: red;
+        }
+        
+        .main-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .cta-button {
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+        footer {
+            background-color: #34495e;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto; /* Push the footer to the bottom */
+            width: 100%;
+        }
+        .toggle-menu {
+            display: none;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        input[type="url"], input[type="text"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .optional-custom-link {
+            margin-top: 10px;
+        }
+        .show {
+            display: block !important;
+        }
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #34495e;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                border-radius: 0 0 10px 10px;
+                padding-bottom: 20px;
+            }
+            .nav-links li {
+                margin-right: 0;
+                margin-bottom: 10px;
+                text-align: left;
+                margin-left: 40px;
+            }
+             nav ul {
+                display: none;
+                position: fixed;
+                top: 50px;
+                left: 0;
+                width: 100%;
+                background-color: #34495e;
+                z-index: 1000;
+                padding: 10px 0;
+                text-align: center;
+            }
+            nav ul.show {
+                display: flex; 
+                flex-direction: column;
+            }
+            .nav-links li {
+                margin-right: 0;
+                margin-bottom: 10px;
+                text-align: left;
+                margin-left: 20px;
+            }
+            nav a {
+                display: block;
+                padding: 10px;
+                color: #ffffff;
+                text-decoration: none;
+            }
+            nav li {
+                margin-bottom: 10px;
+            }
+            .toggle-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                color: #ffffff;
+                font-size: 1.5em;
+                cursor: pointer;
+            }
+            .container {
+                padding-top: 60px;
+            }
+            form {
+                flex-direction: column;
+                align-items: center;
+            }
+            input[type="url"], input[type="text"] {
+                width: calc(100% - 20px);
+                margin: 0, auto;
+                margin-bottom: 10px;
+
+            }
+        }
+        @media screen and (min-width: 769px) {
+    form {
+        flex-direction: column;
+        align-items: center;
+    }
+    input[type="url"],
+    input[type="text"],
+    input[type="submit"] {
+        width: 50%;
+        margin-bottom: 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo"><img src="/static/scissor/images/Logo.svg" alt="Logo" height="20px"></a> <!-- Logo on the left -->
+        <ul class="nav-links">
+            <li><a href="/about">About</a></li>
+            <li><a href="/features">Features</a></li>
+            <li><a href="/user/login">Analytics</a></li>
+            <li><a href="/user/login">URL Shortener</a></li>
+            <li><a href="/user/login">QR Code</a></li>
+            <li><a href="/user/login/" class="button">Login</a></li>
+            <li><a href="/user/signup/" class="button">Sign up</a></li>
+        </ul>
+        <div class="toggle-menu">&#9776;</div>
+    </nav>
+    <div class="container">
+        <div class="main-section">
+            <h2>Welcome to URL Shortener</h2>
+            <p>A simple and elegant tool to shorten your long URLs. With our service, you can shorten URLs easily, track their performance with analytics, and create QR codes for quick sharing.</p>
+            <form action="/user/login", method="GET">
+                <input type="url" id="originalUrl" name="long_url" placeholder="Paste your URL here" required>
+                <input type="text" id="customLink" name="custom_url" placeholder="Custom link (optional)">
+                <button type="submit" class="cta-button">Shorten URL</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 URL Shortener | All rights reserved</p>
+    </footer>
+    <script>
+        document.querySelector('.toggle-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

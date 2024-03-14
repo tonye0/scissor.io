@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - URL Shortener</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            height: 3em;
+            margin-bottom: 5em;
+        }
+        .logo img {
+            height: 30px;
+            width: auto;
+        }
+        .nav-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-links li {
+            display: block;
+            margin-right: 40px;
+        }
+        .nav-links li:last-child {
+            margin-right: 0;
+        }
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover {
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .button {
+            display: inline-block;
+            width: 100px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: red;
+        }
+        
+        hr{
+            display: none;
+        }
+        .container {
+            max-width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .welcome {
+            margin-top: 0;
+            margin-bottom: 20px;
+            margin-left: 1em;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .form-container input[type="url"],
+        .form-container input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        .toggle-menu {
+            display: none;
+        }
+        .show {
+            display: block !important;
+        }
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #34495e;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                border-radius: 0 0 10px 10px;
+                padding-bottom: 20px;
+            }
+            
+            hr{
+                display: block;
+            }
+            .nav-links li {
+                margin-right: 0;
+                margin-bottom: 10px;
+                text-align: left;
+                margin-left: 20px;
+            }
+            .toggle-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                color: #ffffff;
+                font-size: 1.5em;
+                cursor: pointer;
+            }
+        }
+        @media screen and (min-width: 769px) {
+            .form-container input[type="url"],
+            .form-container input[type="text"] {
+                width: calc(50% - 20px);
+                margin-right: 10px;
+            }
+            .form-container input[type="submit"] {
+                width: calc(50% - 20px);
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo"><img src="/static/scissor/images/Logo.svg" alt="Logo"></a>
+        <ul class="nav-links">
+            <li><a href="#">Shorten URL</a></li>
+            <li><a href="/history/">History</a></li>
+            <li><a href="/url-analytics/">Analytics</a></li>
+            <li><a href="/download-qrcode/">QR Code Generator</a></li>
+            <li><a href="/user/logout/" class="button">Logout</a></li>
+        </ul>
+        <div class="toggle-menu">&#9776;</div>
+    </nav>
+    <h3 class="welcome">Welcome to scissor, {{ username }}!</h3>
+    <div class="container">
+        
+        <p>This is your profile page. You can perform various actions here.</p>
+        <div class="form-container">
+            <form action="/shortened-url/" method="POST">
+                <input type="url" name="long_url" placeholder="Enter URL to shorten" required>
+                <input type="text" name="custom_url" placeholder="Enter custom URL (optional)">
+                <input type="submit" value="Shorten URL">
+            </form>
+        </div>
+    </div>
+    <script>
+        document.querySelector('.toggle-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
