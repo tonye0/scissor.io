@@ -151,6 +151,8 @@
             }
             .container {
                 max-width: 90%;
+                display: flex;
+                flex-direction: column;
             }
         }
     </style>
@@ -168,11 +170,12 @@
         <div class="toggle-menu">&#9776;</div>
     </nav>
     <div class="container">
-        <div class="shortened-url">
+        <div class="shortened-url-container">
             <h2>Shortened URL</h2>
-             <p><a class="short-link" href="{{ short_url }}" target="_blank">{{ short_url }}</a></p>
+                         <p><a href="{{ short_url }}" target="_blank">{{ short_url }}</a></p>
+<!--             <p><a href="{{ request.url.scheme }}://{{ request.url.hostname }}/{{ shortened_url }}">{{ request.url.scheme }}://{{ request.url.hostname }}/{{ shortened_url }}</a></p>-->
         </div>
-        <div>
+        <div class="qr-code-container">
             <h2 class="qrcode">QR Code</h2>
             <a href="/qrcode?url={{ long_url }}" download="qrcode.png"><img src="/qrcode?url={{ long_url }}" alt="QR Code for {{ long_url }}"></a>
         </div>

@@ -51,14 +51,20 @@
                     <th>Long URL</th>
                     <th>Shortened URL</th>
                     <th>Date</th>
+                    <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
                 {% for url in urls %}
                 <tr>
-                    <td>{{ url.long_url }}</td>
-                    <td>{{ url.short_url }}</td>
+                    <td><a href="{{ url.long_url }}" target="_blank">{{ url.long_url }}</a></td>
+                    <td><a href="{{ url.long_url }}" target="_blank">{{ url.short_url }}</a></td>
                     <td>{{ url.created_at }}</td>
+                    <td>
+                        <form id="delete-form-{{ url.id }}" action="/delete/{{ url.id }}" method="POST">
+                            <input type="submit" value="Delete" onclick="confirmDelete(event, {{ url.id }})">
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -69,6 +75,7 @@
         document.querySelector('.toggle-menu').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('show');
         });
+
     </script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.exceptions import HTTPException as FastAPIHTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,6 +13,7 @@ from .database.db import engine
 from .routers.urls import url_router
 from .routers.home import home_router
 from .routers.users import user_router
+from .config import settings
 
 
 models.Base.metadata.create_all(bind=engine)
@@ -63,4 +66,8 @@ async def http_exception_handler(request: Request, exc: Exception):
     return templates.TemplateResponse("exception.html", {"request": request, "status_code": 404, "exc": exc})
 
 
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", settings.port))
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
