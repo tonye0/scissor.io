@@ -108,29 +108,5 @@ class URLService:
         db.commit()
         return templates.TemplateResponse("history.html", {"request": request, "urls": urls})
 
-    @staticmethod
-    def redirect_to_long_url(request: Request, short_url: str, db: Session):
-        user_ip_address = get_ip_address()
-        original_url = db.query(URL).filter(URL.short_url == short_url).first()
-        if original_url:
-            original_url.clicks += 1
-            ip_info = get_ip_info(user_ip_address)
-            country = ip_info.get('country', 'Unknown')
-            state = ip_info.get('region', 'Unknown')
-            city = ip_info.get('city', 'Unknown')
-            clicks = Click(
-                url_id=original_url.id,
-                ip_address=user_ip_address,
-                country=country,
-                state=state,
-                city=city
-            )
-            db.add(clicks)
-            db.commit()
-            db.refresh(clicks)
-            return RedirectResponse(original_url.long_url, status_code=status.HTTP_307_TEMPORARY_REDIRECT)
-        else:
-            raise HTTPException(status_code=404, detail="URL not found")
-
 
 url_handler = URLService()

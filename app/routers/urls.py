@@ -91,11 +91,10 @@ async def delete_url(request: Request, url_id: int, db: Session = Depends(get_db
 
 
 
-
-@url_router.get("/{short_url}")
-def redirect_to_long_url(request: Request, short_url: str, db: Session = Depends(get_db)):
+@url_router.get("/{complete_short_url}")
+def redirect_to_long_url(request: Request, complete_short_url: str, db: Session = Depends(get_db)):
     user_ip_address = get_ip_address()
-    original_url = db.query(URL).filter(URL.short_url == short_url).first()
+    original_url = db.query(URL).filter(URL.short_url == complete_short_url).first()
     if original_url:
         original_url.clicks += 1
         ip_info = get_ip_info(user_ip_address)
