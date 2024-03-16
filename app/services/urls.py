@@ -28,12 +28,12 @@ class URLService:
         else:
             short_url = generate_short_url()
 
-        domain = request.url.scheme + "://" + request.url.hostname
-        complete_short_url = domain + "/" + short_url
+        # domain = request.url.scheme + "://" + request.url.hostname
+        # complete_short_url = domain + "/" + short_url
 
         url_link = URL()
         url_link.long_url = long_url
-        url_link.short_url = complete_short_url
+        url_link.short_url = short_url
         url_link.clicks = 0
         url_link.user_id = user.get("id")
 
@@ -41,7 +41,7 @@ class URLService:
         db.commit()
         db.refresh(url_link)
 
-        return templates.TemplateResponse("short_url.html", {"request": request, "short_url": complete_short_url})
+        return templates.TemplateResponse("short_url.html", {"request": request, "short_url": short_url})
 
     @staticmethod
     async def history(request: Request, db: Session):

@@ -42,7 +42,7 @@
             {% if status_code == 404 %}
                 Oops... This page does not exist.
             {% elif status_code == 401 %}
-                Unauthorized: Please login to access this page.
+                Your session has expired: Please login to access this page.
                  <p><a href="/user/login">Go back to login page</a></p>
             {% elif status_code == 429 %}
                 Rate limit reached: Please try again later.
@@ -51,6 +51,7 @@
             {% endif %}
         </p>
         <p><a href="/">Go back to homepage</a></p>
+        <p><a href="/dashboard">Go back to shortening urls</a></p>
     </div>
 </body>
 </html>

@@ -39,14 +39,14 @@ async def generic_exception_handler(request: Request, exc: Exception):
 #     return templates.TemplateResponse("exception.html", {"request": request})
 
 
-# origins = ["*"]
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=origins,
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.include_router(home_router)
