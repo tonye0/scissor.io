@@ -58,7 +58,7 @@
                 {% for url in urls %}
                 <tr>
                     <td><a href="{{ url.long_url }}" target="_blank">{{ url.long_url }}</a></td>
-                    <td><a href="{{ url.long_url }}" target="_blank">{{ url.short_url }}</a></td>
+                    <td><a href="{{ url.short_url }}" target="_blank">{{ url.short_url }}</a></td>
                     <td>{{ url.created_at }}</td>
                     <td>
                         <form id="delete-form-{{ url.id }}" action="/delete/{{ url.id }}" method="POST">

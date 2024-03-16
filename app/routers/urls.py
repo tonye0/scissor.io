@@ -93,8 +93,6 @@ async def delete_url(request: Request, url_id: int, db: Session = Depends(get_db
 
 @url_router.get("/{short_url}")
 def redirect_to_long_url(request: Request, short_url: str, db: Session = Depends(get_db)):
-    print("Incoming request URL:", request.url)
-
 
     user_ip_address = get_ip_address()
     original_url = db.query(URL).filter(URL.short_url == short_url).first()
@@ -116,12 +114,7 @@ def redirect_to_long_url(request: Request, short_url: str, db: Session = Depends
         db.commit()
         db.refresh(clicks)
 
-        response_url = original_url.long_url
-        print("Response status code:", status.HTTP_307_TEMPORARY_REDIRECT)
-        print("Redirecting to:", response_url)
-
         return RedirectResponse(original_url.long_url, status_code=status.HTTP_307_TEMPORARY_REDIRECT)
 
     else:
-        print("Error: URL not found")
         raise HTTPException(status_code=404, detail="URL not found")
