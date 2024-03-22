@@ -185,7 +185,7 @@
         </ul>
         <div class="toggle-menu">&#9776;</div>
     </nav>
-    <h2 class="welcome">Welcome to scissor, <span style="color: #007bff; font-style: italic;">{{ username }}</span>!</h2>
+    <h2 class="welcome">Welcome to scissor, <span style="color: #007bff; font-style: italic;">{{ username }} </span>&#128522;</h2>
     <div class="container">
         
         <p>Welcome to Scissor! With our platform, you can easily transform long, cumbersome URLs into concise, shareable links. Simply input your lengthy URL into the provided field, and in just a few clicks, Scissor will generate a shortened URL for you. Say goodbye to unwieldy links and hello to streamlined sharing across all your favorite platforms!</p>
@@ -195,7 +195,7 @@
                 <input type="url" name="long_url" placeholder="Enter Long URL to shorten" required>
                 <input type="text" name="custom_url" placeholder="Enter custom alias (optional)">
                 {% if message %}
-                <p style="color: red; border: 1px solid red; padding: 5px;">{{ message }}</p>
+                <p style="color: red; border: 1px solid red; padding: 5px;">{{ message }} &#128542;</p>
                 {% endif %}
                 <input type="submit" value="Shorten URL">
             </form>
