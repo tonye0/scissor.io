@@ -146,15 +146,15 @@
     <h1 class="history-title">URL History</h1>
     <div class="history-container">
         {% if message %}
-        <p style="color: red; border: 1px solid red; padding: 5px; margin-top: 5px;">{{ message }}</p>
+        <p style="color: red; border: 1px solid red; padding: 5px; margin-top: 5px;">{{ message }} &#128542;</p>
         {% endif %}
         {% for url in urls %}
         <section class="url-entry">        
             <h3 class="url-title">{{ url.label }}</h3>
-            <p><strong>Shortened URL:</strong> <a href="{{ url.short_url }}" target="_blank">scissor.io/{{ url.short_url }}</a></a></p>
-            <p><strong>Long URL:</strong>{{ url.long_url }}</p>
-            <p><strong>Clicks:</strong>{{ url.clicks }}</p>
-            <p><strong>Date Generated:</strong>{{ url.created_at }}</p>
+            <p><strong>Scissored URL: </strong> <a href="{{ url.short_url }}" target="_blank">scissor.io/{{ url.short_url }}</a></a></p>
+            <p><strong>Long URL: </strong>{{ url.long_url }}</p>
+            <p><strong>Clicks: </strong>{{ url.clicks }}</p>
+            <p><strong>Date Generated: </strong>{{ url.created_at }}</p>
             <div class="button-container">
                <a class="qrcode" href="/qrcode?url={{ long_url }}" download="qrcode.png"><img src="/qrcode?url={{ long_url }}" alt="QR Code for {{ long_url }}"></a>
                 <form id="delete-form-{{ url.id }}" class="delete-button" action="/delete/{{ url.id }}" method="POST">
