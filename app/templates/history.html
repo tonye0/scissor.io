@@ -145,6 +145,9 @@
     </nav>
     <h1 class="history-title">URL History</h1>
     <div class="history-container">
+        {% if message %}
+        <p style="color: red; border: 1px solid red; padding: 5px; margin-top: 5px;">{{ message }}</p>
+        {% endif %}
         {% for url in urls %}
         <section class="url-entry">        
             <h3 class="url-title">{{ url.label }}</h3>
