@@ -24,7 +24,7 @@ class URLService:
         if custom_url:
             existing_url = db.query(URL).filter(URL.short_url == custom_url).first()
             if existing_url:
-                message = "Sorry! You can't use the same custom alias twice &#128542;"
+                message = "Sorry! You can't use the same custom alias twice"
                 return templates.TemplateResponse("profile.html", {"request": request, "message": message})
             short_url = custom_url
         else:
@@ -76,7 +76,7 @@ class URLService:
         
 
         if not url_in_db:
-            message = "Sorry! This scissored link does not exist &#128542;"     
+            message = "Sorry! This scissored link does not exist."     
             return templates.TemplateResponse("analytics_form.html", {"request": request, "message": message})
            
         click_records = db.query(Click).filter(Click.url_id == url_in_db.id).all()
@@ -105,7 +105,7 @@ class URLService:
         url_to_delete = db.query(URL).filter(URL.id == url_id).first()
 
         if not url_to_delete:
-            message = "Sorry! The resource you're trying to delete does not exist &#128542;"
+            message = "Sorry! The resource you're trying to delete does not exist."
             return templates.TemplateResponse("history.html", {"request": request, "urls": urls, "message": message})
           
 
