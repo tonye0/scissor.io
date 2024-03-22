@@ -52,6 +52,9 @@
     <div class="container">
         <h2>Enter your short URL for detailed analysis</h2>
         <div class="form-container">
+            {% if message %}
+            <p style="color: red; border: 1px solid red; padding: 5px; margin-top: 5px;">{{ message }}</p>
+            {% endif %}
             <form id="qr-form" action="/analytics/" method="POST">
                 <label for="text">Enter short URL:</label><br><br>
                 <input type="text" name="short_url" placeholder="Enter short URL for analysis" required>
