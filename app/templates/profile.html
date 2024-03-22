@@ -194,6 +194,9 @@
                 <input type="text" name="label" placeholder="Enter URL Label (optional)">
                 <input type="url" name="long_url" placeholder="Enter Long URL to shorten" required>
                 <input type="text" name="custom_url" placeholder="Enter custom alias (optional)">
+                {% if message %}
+                <p style="color: red; border: 1px solid red; padding: 5px;">{{ message }}</p>
+                {% endif %}
                 <input type="submit" value="Shorten URL">
             </form>
         </div>
