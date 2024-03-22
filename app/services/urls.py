@@ -24,7 +24,8 @@ class URLService:
         if custom_url:
             existing_url = db.query(URL).filter(URL.short_url == custom_url).first()
             if existing_url:
-                raise HTTPException(status_code=400, detail="Custom link already in use")
+                message = "custom alias already exists"
+                return templates.TemplateResponse("profile.html", {"request": request, "message": message})
             short_url = custom_url
         else:
             short_url = generate_short_url()
@@ -75,8 +76,9 @@ class URLService:
         
 
         if not url_in_db:
-            raise HTTPException(status_code=404, detail="URL not found")
-
+            message = "Sorry! This scissored link does not exist"     
+            return templates.TemplateResponse("analytics_form.html", {"request": request, "message": message})
+           
         click_records = db.query(Click).filter(Click.url_id == url_in_db.id).all()
 
         analytics_data = []
@@ -103,7 +105,9 @@ class URLService:
         url_to_delete = db.query(URL).filter(URL.id == url_id).first()
 
         if not url_to_delete:
-            raise HTTPException(status_code=404, detail="URL not found")
+            message = "Sorry! The resource you're trying to delete does not exist."
+            return templates.TemplateResponse("history.html", {"request": request, "message": message})
+          
 
         db.delete(url_to_delete)
         db.commit()
