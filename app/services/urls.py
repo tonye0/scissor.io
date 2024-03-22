@@ -25,7 +25,7 @@ class URLService:
             existing_url = db.query(URL).filter(URL.short_url == custom_url).first()
             if existing_url:
                 message = "Sorry! You can't use the same custom alias twice"
-                return templates.TemplateResponse("profile.html", {"request": request, "message": message})
+                return templates.TemplateResponse("profile.html", {"request": request,  "username": user.get("username"), "message": message})
             short_url = custom_url
         else:
             short_url = generate_short_url()
