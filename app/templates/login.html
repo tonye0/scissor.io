@@ -121,9 +121,9 @@
     <div class="container">
           <h2>Login to Shorten your long URL</h2>
         {% if msg %}
-            {% if msg == 'You have successfully logged out' or msg == 'Successfully signed up for scissor' %}
+            {% if msg == 'Logged out. See you later!' or msg == 'Yay! Welcome to scissor' %}
                 <div class="alert alert-success" role="alert">
-                    {{ msg }}
+                    {{ msg }} &#128522;
                 </div>
             {% else %}
                 <div class="alert-danger" role="alert">
