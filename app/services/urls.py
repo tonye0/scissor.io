@@ -106,7 +106,7 @@ class URLService:
 
         if not url_to_delete:
             message = "Sorry! The resource you're trying to delete does not exist."
-            return templates.TemplateResponse("history.html", {"request": request, "message": message})
+            return templates.TemplateResponse("history.html", {"request": request, "urls": urls, "message": message})
           
 
         db.delete(url_to_delete)
