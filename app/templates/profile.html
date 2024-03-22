@@ -49,7 +49,9 @@
         .nav-links a:hover {
             border-bottom: 2px solid #ffffff;
         }
-
+        p{
+            font-weight: bold;
+        }
         .button {
             display: inline-block;
             width: 100px;
@@ -95,7 +97,7 @@
             padding: 20px;
             border-radius: 10px;
             background-color: #f9f9f9;
-            max-width: 400px;
+            max-width: 700px;
             margin: 0 auto;
         }
         .form-container input[type="url"],
@@ -183,14 +185,15 @@
         </ul>
         <div class="toggle-menu">&#9776;</div>
     </nav>
-    <h3 class="welcome">Welcome to scissor, {{ username }}!</h3>
+    <h2 class="welcome">Welcome to scissor, <span style="color: #007bff; font-style: italic;">{{ username }}</span>!</h2>
     <div class="container">
         
-        <p>This is your profile page. You can perform various actions here.</p>
+        <p>Welcome to Scissor! With our platform, you can easily transform long, cumbersome URLs into concise, shareable links. Simply input your lengthy URL into the provided field, and in just a few clicks, Scissor will generate a shortened URL for you. Say goodbye to unwieldy links and hello to streamlined sharing across all your favorite platforms!</p>
         <div class="form-container">
             <form action="/shortened-url/" method="POST">
-                <input type="url" name="long_url" placeholder="Enter URL to shorten" required>
-                <input type="text" name="custom_url" placeholder="Enter custom URL (optional)">
+                <input type="text" name="label" placeholder="Enter URL Label (optional)">
+                <input type="url" name="long_url" placeholder="Enter Long URL to shorten" required>
+                <input type="text" name="custom_url" placeholder="Enter custom alias (optional)">
                 <input type="submit" value="Shorten URL">
             </form>
         </div>

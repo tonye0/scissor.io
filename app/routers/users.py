@@ -146,10 +146,26 @@ async def register_user(request: Request, db: db_dependency, email: str = Form(.
     validation1 = db.query(User).filter(User.username == username).first()
 
     validation2 = db.query(User).filter(User.email == email).first()
-
-    if password != password2 or validation1 is not None or validation2 is not None:
-        msg = "Invalid input. Try again!"
+    
+    if validation1 is not None:
+        msg = "username already in use"
         return templates.TemplateResponse("signup.html", {"request": request, "msg": msg})
+    if validation2 is not None:
+        msg = "email already in use"
+        return templates.TemplateResponse("signup.html", {"request": request, "msg": msg})
+    if len(password) <= 6:
+        msg = "Password must be greater than 6 characters."
+        return templates.TemplateResponse("signup.html", {"request": request, "msg": msg})
+    elif not any(char.isdigit() for char in password):
+        msg = "Password must contain at least one numeric digit."
+        return templates.TemplateResponse("signup.html", {"request": request, "msg": msg})
+    elif not any(char.isalpha() for char in password):
+        msg = "Password must contain at least one alphabetical character."
+    
+    if password != password2:
+        msg = "passwords do not match"
+        return templates.TemplateResponse("signup.html", {"request": request, "msg": msg})
+   
 
     user_model = User()
 

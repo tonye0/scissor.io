@@ -1,6 +1,7 @@
 from fastapi import Request, HTTPException, status
 from fastapi.responses import RedirectResponse, FileResponse
 
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from validators import url as validate_url
 
@@ -12,7 +13,7 @@ from ..database.models import URL, Click
 class URLService:
 
     @staticmethod
-    async def shorten_url(request: Request, long_url, custom_url, db: Session):
+    async def shorten_url(request: Request, long_url, custom_url, label, db: Session):
         user = await get_current_user(request)
         if user is None:
             return RedirectResponse("/user/login", status_code=status.HTTP_302_FOUND)
@@ -28,12 +29,10 @@ class URLService:
         else:
             short_url = generate_short_url()
 
-        # domain = request.url.scheme + "://" + request.url.hostname
-        # complete_short_url = domain + "/" + short_url
-
         url_link = URL()
         url_link.long_url = long_url
         url_link.short_url = short_url
+        url_link.label = label
         url_link.clicks = 0
         url_link.user_id = user.get("id")
 
@@ -41,7 +40,7 @@ class URLService:
         db.commit()
         db.refresh(url_link)
 
-        return templates.TemplateResponse("short_url.html", {"request": request, "short_url": short_url})
+        return templates.TemplateResponse("short-url.html", {"request": request, "short_url": short_url, "label": label})
 
     @staticmethod
     async def history(request: Request, db: Session):
@@ -49,7 +48,7 @@ class URLService:
         if user is None:
             return RedirectResponse("/user/login", status_code=status.HTTP_302_FOUND)
 
-        urls = db.query(URL).filter(URL.user_id == user.get("id")).all()
+        urls = db.query(URL).filter(URL.user_id == user.get("id")).order_by(desc(URL.created_at)).all()
 
         return templates.TemplateResponse("history.html", {"request": request, "urls": urls})
 
@@ -71,8 +70,10 @@ class URLService:
         user = await get_current_user(request)
         if user is None:
             return RedirectResponse("/user/login", status_code=status.HTTP_302_FOUND)
+        url = short_url.split("/")[-1]
+        url_in_db = db.query(URL).filter(URL.short_url == url).first()
+        
 
-        url_in_db = db.query(URL).filter(URL.short_url == short_url).first()
         if not url_in_db:
             raise HTTPException(status_code=404, detail="URL not found")
 

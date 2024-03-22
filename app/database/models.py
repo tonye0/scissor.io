@@ -27,6 +27,7 @@ class URL(Base):
     id = Column(Integer, primary_key=True, nullable=False, index=True)
     long_url = Column(String, nullable=False, index=True)
     short_url = Column(String, unique=True, nullable=False, index=True)
+    label = Column(String, nullable=True, index=True, default="My URL")
     clicks = Column(Integer, index=True, default=0)
     created_at = Column(
         TIMESTAMP(timezone=True),

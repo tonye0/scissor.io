@@ -15,6 +15,25 @@
             align-items: center;
             min-height: 100vh;
         }
+        .alert-danger {
+            color: white;
+            background-color: red; 
+            border: 1px solid #cc0000; 
+            border-radius: 5px; 
+            padding: 10px; 
+            text-align: center; 
+            margin-bottom: 10px; 
+        }
+        .alert-success {
+            color: white;
+            background-color: #3498db; 
+            border: 1px solid #cc0000; 
+            border-radius: 5px; 
+            padding: 10px; 
+            text-align: center; 
+            margin-bottom: 10px; 
+        }
+        
         .container {
             background-color: #ffffff;
             width: 80%;
@@ -107,7 +126,7 @@
                     {{ msg }}
                 </div>
             {% else %}
-                <div class="alert alert-danger" role="alert">
+                <div class="alert-danger" role="alert">
                     {{ msg }}
                 </div>
             {% endif %}

@@ -30,35 +30,36 @@ async def dashboard(request: Request):
 
 
 @url_router.post("/shortened-url")
-@rate_limiter(limit=25, seconds=60)
+@rate_limiter(limit=50, seconds=60)
 def shorten_url(
         request: Request,
         long_url: Annotated[str, Form()],
         custom_url: str = Form(None),
+        label: str = Form("My URL"),
         db: Session = Depends(get_db)
 ):
-    return url_handler.shorten_url(request, long_url, custom_url, db)
+    return url_handler.shorten_url(request, long_url, custom_url, label, db)
 
 
 @url_router.get("/history", response_class=HTMLResponse)
-@rate_limiter(limit=25, seconds=60)
+@rate_limiter(limit=50, seconds=60)
 def url_history(request: Request, db: Session = Depends(get_db)):
     return url_handler.history(request, db)
 
 
 @url_router.get("/download-qrcode")
-@rate_limiter(limit=5, seconds=60)
+@rate_limiter(limit=50, seconds=60)
 async def download_qr_code_form(request: Request):
     return templates.TemplateResponse("qrcode_form.html", {"request": request})
 
 
 @url_router.get("/qrcode")
-@rate_limiter(limit=3, seconds=3)
+@rate_limiter(limit=50, seconds=3)
 def download_qr_code(request: Request, url: str):
     return url_handler.download_qr_code(request, url)
 
 @url_router.get("/url-analytics", response_class=HTMLResponse)
-@rate_limiter(limit=5, seconds=60)
+@rate_limiter(limit=15, seconds=60)
 async def show_analytics_form(request: Request):
     user = await get_current_user(request)
     if user is None:
@@ -67,7 +68,7 @@ async def show_analytics_form(request: Request):
 
 
 @url_router.post("/analytics", response_class=HTMLResponse)
-@rate_limiter(limit=5, seconds=60)
+@rate_limiter(limit=15, seconds=60)
 def get_analytics(request: Request, short_url: str = Form(...), db: Session =Depends(get_db)):
     return url_handler.get_analytics(request, short_url, db)
 

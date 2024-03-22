@@ -25,6 +25,98 @@
         .nav-links a:hover {
             border-bottom: 2px solid #ffffff;
         }
+        .url-entry {
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: flex-start;
+
+        }
+
+        .history-container {
+            max-width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .url-title {
+            font-size: 32px; 
+            font-weight: bold; 
+            color: #3498db; 
+            margin-bottom: 20px; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+        }
+
+
+        .url-details p {
+            margin-bottom: 10px; 
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: left;
+        }
+
+        .update-button,
+        .delete-button {
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px; /* Increased padding */
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            font-size: 16px; /* Font size */
+            transition: background-color 0.3s ease; /* Smooth transition */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Box shadow */
+        }
+
+        .download-button {
+            background-color: transparent; /* Transparent background */
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: transform 0.3s ease; /* Smooth transition */
+        }
+
+        .download-button img {
+            width: 24px; /* Adjust image size */
+        }
+
+        .download-button:hover {
+            transform: scale(1.1); 
+        }
+
+        .delete-button:hover {
+            background-color: #2980b9; 
+        }
+
+        form{
+            align-self: center;
+        }
+        
+        .delete-button {
+            margin-left: 10px; 
+        } 
+        
+        .download-button:last-child,
+        .delete-button:last-child {
+            margin-right: 0;
+        }
+        
+        .download-button:hover,
+        .delete-button:hover {
+            background-color: #2980b9;
+        }
     </style>
     <link rel="stylesheet"
       type="text/css"
@@ -42,40 +134,29 @@
         </ul>
         <div class="toggle-menu">&#9776;</div>
     </nav>
+    <h1 class="history-title">URL History</h1>
     <div class="history-container">
-        <h2>Shortened URL History</h2>
-        <div class="table-container">
-            <table class="history-table">
-            <thead>
-                <tr>
-                    <th>Long URL</th>
-                    <th>Shortened URL</th>
-                    <th>Date</th>
-                    <th>&nbsp;</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for url in urls %}
-                <tr>
-                    <td><a href="{{ url.long_url }}" target="_blank">{{ url.long_url }}</a></td>
-                    <td><a href="{{ url.short_url }}" target="_blank">{{ url.short_url }}</a></td>
-                    <td>{{ url.created_at }}</td>
-                    <td>
-                        <form id="delete-form-{{ url.id }}" action="/delete/{{ url.id }}" method="POST">
-                            <input type="submit" value="Delete" onclick="confirmDelete(event, {{ url.id }})">
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        </div>
+        {% for url in urls %}
+        <section class="url-entry">        
+            <h3 class="url-title">{{ url.label }}</h3>
+            <p><strong>Shortened URL:</strong> <a href="{{ url.short_url }}" target="_blank">scissor.io/{{ url.short_url }}</a></a></p>
+            <p><strong>Long URL:</strong>{{ url.long_url }}</p>
+            <p><strong>Clicks:</strong>{{ url.clicks }}</p>
+            <p><strong>Date Generated:</strong>{{ url.created_at }}</p>
+            <div class="button-container">
+               <a class="qrcode" href="/qrcode?url={{ long_url }}" download="qrcode.png"><img src="/qrcode?url={{ long_url }}" alt="QR Code for {{ long_url }}"></a>
+                <form id="delete-form-{{ url.id }}" class="delete-button" action="/delete/{{ url.id }}" method="POST">
+                    <input type="submit" value="Delete" onclick="confirmDelete(event, {{ url.id }})">
+                </form>
+            </div>          
+        </section>
+        {% endfor %}
+            
     </div>
     <script>
         document.querySelector('.toggle-menu').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('show');
         });
-
     </script>
 </body>
 </html>
