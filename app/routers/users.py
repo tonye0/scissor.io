@@ -82,7 +82,7 @@ async def get_current_user(request: Request):
             raise None
         return {"username": username, "id": user_id}
     except JWTError:
-        msg = "Your last session has ended. Log in again."
+        msg = "Your session has ended. Log in again to continue using scissor."
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail="Invalid authentication credentials")
 
@@ -117,17 +117,17 @@ async def login(request: Request, db: db_dependency):
         validate_user_cookie = await login_for_access_token(response=response, form_data=form, db=db)
 
         if not validate_user_cookie:
-            msg = "Invalid username or password. Try again!"
+            msg = "Invalid username or password. Try again! &#128542;"
             return templates.TemplateResponse("login.html", {"request": request, "msg": msg})
         return response
     except HTTPException:
-        msg = "Unknown error. Try logging in again."
+        msg = "Unknown error &#128542;. Try logging in again."
         return templates.TemplateResponse("login.html", {"request": request, "msg": msg})
 
 
 @user_router.get("/logout", response_class=HTMLResponse)
 async def logout(request: Request):
-    msg = "You have successfully logged out"
+    msg = "Logged out. See you later! &#128522;"
     response = templates.TemplateResponse("login.html", {"request": request, "msg": msg})
     response.delete_cookie(key="access_token")
     return response
@@ -148,10 +148,10 @@ async def register_user(request: Request, db: db_dependency, email: str = Form(.
     validation2 = db.query(User).filter(User.email == email).first()
     
     if validation1 is not None:
-        msg = "username already in use"
+        msg = "This username already in use"
         return templates.TemplateResponse("signup.html", {"request": request, "msg": msg})
     if validation2 is not None:
-        msg = "email already in use"
+        msg = "This email is already in use"
         return templates.TemplateResponse("signup.html", {"request": request, "msg": msg})
     if len(password) <= 6:
         msg = "Password must be greater than 6 characters."
@@ -175,7 +175,7 @@ async def register_user(request: Request, db: db_dependency, email: str = Form(.
     db.add(user_model)
     db.commit()
 
-    msg = "You have sucessfuly signed up for scissor"
+    msg = "Yay! Welcome to scissor &#128522;"
     return templates.TemplateResponse("login.html", {"request": request, "msg": msg})
 
     
