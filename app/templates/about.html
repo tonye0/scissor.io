@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - URL Shortener</title>
+    <title>About - Scissor.io</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -91,11 +91,30 @@
 
         footer {
             background-color: #34495e;
-            color: #ffffff;
-            text-align: center;
+            color: #fff;
             padding: 20px 0;
+            text-align: center;
             margin-top: auto; 
             width: 100%;
+        }
+
+       .container {
+           max-width: 960px;
+           margin: 0 auto;
+        }
+
+        .footer-text {
+           margin: 10px 0;
+           font-size: 14px;
+        }
+
+       .footer-text a {
+           color: #fff;
+           text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
         }
         .toggle-menu {
             display: none;
@@ -185,7 +204,11 @@
         </p>
     </div>
     <footer>
-        <p>&copy; 2024 URL Shortener | All rights reserved</p>
+    <div class="container">
+        <p class="footer-text">&copy; 2024 Scissor | All rights reserved</p>
+        <p class="footer-text">Designed and developed by Fortune Minaseidiema</p>
+        <p class="footer-text">Follow me on <a href="https://github.com/tonye0" target="_blank">GitHub</a></p>
+    </div>
     </footer>
     <script>
         document.querySelector('.toggle-menu').addEventListener('click', function() {
