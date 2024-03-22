@@ -117,17 +117,17 @@ async def login(request: Request, db: db_dependency):
         validate_user_cookie = await login_for_access_token(response=response, form_data=form, db=db)
 
         if not validate_user_cookie:
-            msg = "Invalid username or password. Try again! &#128542;"
+            msg = "Invalid username or password. Try again!"
             return templates.TemplateResponse("login.html", {"request": request, "msg": msg})
         return response
     except HTTPException:
-        msg = "Unknown error &#128542;. Try logging in again."
+        msg = "Unknown error. Try logging in again."
         return templates.TemplateResponse("login.html", {"request": request, "msg": msg})
 
 
 @user_router.get("/logout", response_class=HTMLResponse)
 async def logout(request: Request):
-    msg = "Logged out. See you later! &#128522;"
+    msg = "Logged out. See you later!"
     response = templates.TemplateResponse("login.html", {"request": request, "msg": msg})
     response.delete_cookie(key="access_token")
     return response
@@ -175,7 +175,7 @@ async def register_user(request: Request, db: db_dependency, email: str = Form(.
     db.add(user_model)
     db.commit()
 
-    msg = "Yay! Welcome to scissor &#128522;"
+    msg = "Yay! Welcome to scissor"
     return templates.TemplateResponse("login.html", {"request": request, "msg": msg})
 
     
