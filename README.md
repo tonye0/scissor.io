@@ -34,7 +34,7 @@ Scissor is a simple yet powerful URL shortening service designed to make sharing
 
 1. Run the FastAPI server: `uvicorn app.main:app --reload`
 2. Access the Scissor.io.app via the URL (http://localhost:8000)
-3. Access the Scissor.io.app documentation via the URL (http://localhost:8000/docs)
+3.  Access the Scissor.io.app documentation via the URL (http://localhost:8000/docs)
 4. Sign up for a new account or log in with existing credentials.
 5. Paste a long URL into the input field and click "Shorten" to generate a shortened URL.
 6. Optionally, customize the shortened URL..
@@ -60,4 +60,5 @@ Special thanks to [FastAPI](https://fastapi.tiangolo.com/) for providing the fou
 
 ## Contact
 
-For questions, suggestions, or feedback, please contact [fminaseidiema26@gmail.com@example.com](mailto: fminaseidiema26@gmail.com@gmail.com).
+For questions, suggestions, or feedback, please contact [fminaseidiema26@gmail.com](mailto:fminaseidiema26@gmail.com).
+	
